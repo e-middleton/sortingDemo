@@ -1,0 +1,125 @@
+
+:root {
+    --border-color: #e3e5e4;
+    --background-color: #c3c7ca;
+    --text-color: #34444f;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /*to top*/
+    height: 100vh;
+    margin: 0;
+}
+
+.internal-array {
+    display: flex; /* Makes the ul a flex container */
+    list-style: none; /* Removes default bullets */
+    padding: 0; /* Removes default left padding/margin */
+    margin: 0;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    justify-content: center;
+}
+
+.internal-array li {
+    background-color: #fff;
+    border: 1px solid rgb(92, 65, 65);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 90px;
+}
+
+.internal-array .number {
+    background-color: var(--background-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    font-size: 20px;
+    height: 40px;
+    width: 50px;
+}
+
+.internal-array li.over .draggable {
+    background-color: #eaeaea;
+}
+
+.internal-array .value {
+    margin: 0 10px 0 0;
+}
+
+.internal-array li.right {
+    background-color: #91e3ae
+}
+
+.internal-array li.wrong {
+    background-color: #f89999
+}
+
+.internal-array li.sorted {
+    background-color: #b6badeae;
+}
+
+.draggable {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    flex: 1;
+}
+
+.button {
+    background-color: var(--background-color);
+    border: none;
+    color: var(--text-color);
+    font-size: 16px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.button:active {
+    transform: scale(0.98);
+}
+
+.button:focus {
+    outline:none;
+}
+
+.internal-array li span {
+  /* Optional: Add styling to the nested items */
+  margin-bottom: 5px; /* Adds space between the stacked spans */
+}
+
+.index-array {
+    display: flex;
+    list-style: none;
+    padding: 0; /* Removes default left padding/margin */
+    margin: 0;
+    border: 1px solid var(--border-color);
+}
+
+.index-array li {
+    border: 1px solid rgb(92, 65, 65);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 90px;
+}
+
+.index-array li.sorted {
+    background-color: rgba(173, 147, 147, 0.789);
+}
