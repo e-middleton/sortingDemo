@@ -60,15 +60,19 @@ body {
 }
 
 .internal-array li.right {
-    background-color: #91e3ae
+    background-color: #91e3ae;
 }
 
 .internal-array li.wrong {
-    background-color: #f89999
+    border: 2px solid red;
 }
 
-.internal-array li.sorted {
-    background-color: #b6badeae;
+.internal-array li.current {
+    background-color: #fef470;
+}
+
+.internal-array li.done {
+    background-color: gray;
 }
 
 .draggable {
@@ -86,6 +90,7 @@ body {
     color: var(--text-color);
     font-size: 16px;
     padding: 10px 20px;
+    margin-top: 5px;
     cursor: pointer;
 }
 
