@@ -7,12 +7,13 @@ const indexList = document.getElementById('indexArray');
 const button = document.getElementById('testbutton');
 let lastSwap = [];
 let steps = 0;
+const numValues = 5;
 
 const randomValues = [];
 
 // create a random array of 6 integers
-for (let i = 0; i < 6; i++) {
-  randomValues[i] = Math.floor(Math.random() * 20); // gives an integer from 0 - 19
+for (let i = 0; i < numValues; i++) {
+  randomValues[i] = Math.floor(Math.random() * 60); // gives an integer from 0 - 19
 }
 randomValues.sort((a, b) => a - b);
 
@@ -22,6 +23,7 @@ let dragStartIndex; // changes later on
 
 createList();
 createIndexList();
+listVals[0].classList.add('current'); // automatically the 0 index is 'current'
 
 // insert list items into dom
 // copy it
@@ -42,7 +44,6 @@ function createList() {
       listVal.innerHTML = `
           <div class="draggable" draggable="true">
             <p class="value">${num}</p>
-            <i class="fas fa-grip-lines"></i>
           </div>
         `;
       listVals.push(listVal);
@@ -65,6 +66,7 @@ function createIndexList() {
 
 function dragStart() {
   dragStartIndex = +this.closest('li').getAttribute('data-index'); // plus symbol makes it a number
+  console.log(dragStartIndex);
 }
 
 // only reason to include this is to prevent default
@@ -73,17 +75,33 @@ function dragOver(e) {
 }
 
 function dragDrop() {
+  if (dragStartIndex < steps) {
+    this.classList.remove('over');
+    return;
+  }
   // plus makes it a number
   const dragEndIndex = +this.getAttribute('data-index');
   swapItems(dragStartIndex, dragEndIndex);
-
   this.classList.remove('over');
-  steps++;
+
   grade(); // call to grade function each time an object is dropped
+  if (listVals[steps].classList.contains('right')){
+    steps++; // move forward
+    moveCurrSpot(steps);
+  } else {
+    // wrong needs to be first, otherwise not colored red
+    listVals[steps].classList.remove('current');
+    listVals[steps].classList.add('wrong');
+    listVals[steps].classList.add('current'); 
+  }
 }
 
 // swap list items that are drag and drop
 function swapItems(fromIndex, toIndex) {
+  // not allowed to try to swap to sorted array
+  if (toIndex < steps) {
+    return;
+  }
   const itemOne = listVals[fromIndex].querySelector('.draggable');
   const itemTwo = listVals[toIndex].querySelector('.draggable');
   
@@ -105,6 +123,8 @@ function undo() {
   oldVal.classList.remove('wrong');
   oldIdx.classList.remove('sorted');
   steps--;
+  listVals[steps+1].classList.remove('current');
+  listVals[steps].classList.add('current');
 }
 
 function dragEnter() {
@@ -117,37 +137,60 @@ function dragLeave() {
 
 // check the order of elements in list
 function grade() {
-  for (let i = 0; i < steps; i++) {
-    let listItem = listVals[i];
-    const itemVal = listItem.querySelector('.draggable').innerText.trim();
-    if(parseInt(itemVal) !== randomValues[i]) {
-      listItem.classList.remove('right');
-      listItem.classList.add('wrong');
-    } else {
-      listItem.classList.remove('wrong');
-      listItem.classList.add('right');
-    }
+  const listItem = listVals[steps];
+  const itemVal = listItem.querySelector('.draggable').innerText.trim();
+  if(parseInt(itemVal) !== randomValues[steps]) {
+    listItem.classList.remove('right');
+    listItem.classList.add('wrong');
+  } else {
+    listItem.classList.remove('wrong');
+    listItem.classList.add('right');
+  }
 
-    let indexItem = indexVals[i];
+  if (listVals[steps].classList.contains('right')){
+    let indexItem = indexVals[steps];
     indexItem.classList.add('sorted');
-    console.log(indexItem.classList);
+    // remove interactivity for correctly sorted elements
+    removeInteraction(listVals[steps]);
+  }
+
+  if (steps === listVals.length-1) {
+    markFinished();
   }
 }
 
+function moveCurrSpot(currentIndex) {
+  listVals[currentIndex-1].classList.remove('current');
+  listVals[currentIndex].classList.add('current');
+}
+
 function addEventListeners() {
-  const draggables = document.querySelectorAll('.draggable');
   const dragListItems = document.querySelectorAll('.internal-array li');
 
-  draggables.forEach(draggable => {
-    draggable.addEventListener('dragstart', dragStart);
-  })
-
   dragListItems.forEach(item => {
+    item.addEventListener('dragstart', dragStart);
     item.addEventListener('dragover', dragOver);
     item.addEventListener('drop', dragDrop);
     item.addEventListener('dragenter', dragEnter);
     item.addEventListener('dragleave', dragLeave);
   })
+}
+
+function removeInteraction(item) {
+  item.classList.add('done');
+  item.removeEventListener('drop', dragDrop);
+}
+
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function markFinished() {
+  for (let i = 0; i <= steps; i++){
+    await delay(500);
+    listVals[i].classList.remove('done');
+    listVals[i].removeEventListener('dragstart', dragStart);
+  }
 }
 
 button.addEventListener('click', undo);
