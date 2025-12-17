@@ -8,13 +8,52 @@
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>	
-	<h1>Sorting Demo</h1>
-	<p>Drag elements to their correct location</p>
-	<p>Grayed out elements are correctly placed in the 'sorted' portion, and no longer moveable.</p>
-	<ul class="internal-array" id="array"></ul>
-	<ul class="index-array" id="indexArray">
-	</ul>
+	<h1>Practice for Selection Sort on Arrays</h1>
+	<p>Grayed out elements are correctly placed in the 'sorted' section, and are no longer moveable.</p>
+	<p>If an element is already sorted, but in the 'unsorted' section. Pick it up and drop it back into the square.</p>
+	<div class="dropdown"> 
+		<div class="select">
+			<span class="selected">Array Length</span>
+			<div class="caret"></div>
+		</div>
+		<ul class="menu">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+			<li>6</li>
+			<li>7</li>
+			<li>8</li>
+			<li>9</li>
+			<li>10</li>
+		</ul>
+	</div>
+
+	<div class="arrays">
+		<ul class="internal-array" id="array"></ul>
+		<ul class="index-array" id="indexArray"></ul>
+	</div>
 	<button class="button" id="testbutton">undo</button>
+	<div class="pseudocode">
+		<h3>
+			Pseudocode
+		</h3>
+		<pre><code> 
+		FOR i in range(array length):
+		.	smallestIndex = i
+		.	FOR j in range(1 - array length):
+		.	.	IF array[j] < array[smallestIndex]
+		.	.	.	smallestIndex = j
+		.	.	DONE
+		.	DONE
+		.	temp = array[i] 
+		.	array[i] = array[smallestIndex] 
+		.	array[smallestIndex] = temp
+		DONE
+
+		</code></pre>
+	</div>
 	<script src="main.js"></script>
 </body>
 </html>

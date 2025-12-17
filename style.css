@@ -1,12 +1,9 @@
 
 :root {
-    --border-color: #e3e5e4;
-    --background-color: #c3c7ca;
+    --border-color: #363a43;
+    --background-color: #b5c3cd;
+    --focus-color: #88929a;
     --text-color: #34444f;
-}
-
-* {
-    box-sizing: border-box;
 }
 
 body {
@@ -19,40 +16,136 @@ body {
     margin: 0;
 }
 
+.dropdown {
+    min-width: 15em;
+    position: relative;
+    margin: 2em;
+}
+
+.dropdown * {
+    box-sizing: border-box;
+}
+
+.select {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid black;
+    border-radius: 0.5em;
+    padding: 1em;
+    cursor: pointer;
+}
+
+.select-clicked {
+    border: 2px gray solid;
+    box-shadow: 0 0 0.8em #26489a;
+}
+
+.select:hover {
+    background: #77778629;
+}
+
+.caret {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid #fff;
+    transition: 0.3s;
+}
+
+.caret-rotate {
+    transform: rotate(180deg);
+}
+
+.menu {
+    list-style: none;
+    padding: 0.2em 0.5em;
+    background: var(--background-color);
+    border: 1px #363a43 solid;
+    box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
+    border-radius: 0.5em;
+    color: #41485d;
+    position: absolute;
+    top: 3em;
+    left: 50%;
+    width: 100%;
+    transform: translateX(-50%);
+    opacity: 0;
+    display: none;
+    transition: 0.2s;
+    z-index: 1;
+}
+
+.menu li {
+    padding: 0.7em 0.5em;
+    margin: 0.3em 0;
+    border-radius: 0.5em;
+    cursor: pointer;
+}
+
+.menu li:hover {
+    background: var(--focus-color);
+}
+
+.active {
+    background: var(--focus-color);
+}
+
+.menu-open {
+    display: block;
+    opacity: 1;
+}
+
+/* Array styling */
+
+.arrays {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 3px;
+
+}
+
 .internal-array {
     display: flex; /* Makes the ul a flex container */
     list-style: none; /* Removes default bullets */
     padding: 0; /* Removes default left padding/margin */
     margin: 0;
-    border: 1px solid var(--border-color);
+    /* border: 2px solid var(--border-color); */
     color: var(--text-color);
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 .internal-array li {
     background-color: #fff;
-    border: 1px solid rgb(92, 65, 65);
+    border: 2px solid var(--border-color);
+    border-right:none;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100px;
-    width: 90px;
+    height: 11dvh;
+    max-width: 12dvh;
 }
 
-.internal-array .number {
-    background-color: var(--background-color);
+.internal-array li:last-child{
+    border-right: 2px solid var(--border-color);
+}
+
+.internal-array .value {
+    background-color: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    font-size: 20px;
-    height: 40px;
-    width: 50px;
+    font-size: 17px;
+    height: 10dvh;
+    width: 10dvh;
 }
 
-.internal-array li.over .draggable {
-    background-color: #eaeaea;
+.internal-array li.over {
+    background-color: #a2a2a2; 
 }
 
 .internal-array .value {
@@ -64,15 +157,11 @@ body {
 }
 
 .internal-array li.wrong {
-    border: 2px solid red;
-}
-
-.internal-array li.current {
-    background-color: #fef470;
+    background-color: rgb(222, 126, 126)
 }
 
 .internal-array li.done {
-    background-color: gray;
+    background-color: rgb(122, 141, 158);
 }
 
 .draggable {
@@ -80,12 +169,12 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 15px;
+    /* padding: 15px; */
     flex: 1;
 }
 
 .button {
-    background-color: var(--background-color);
+    background-color: rgb(149,149,149);
     border: none;
     color: var(--text-color);
     font-size: 16px;
@@ -102,29 +191,55 @@ body {
     outline:none;
 }
 
+.locked {
+    background-color: #f2ff00;
+    border: 2px solid #d9c91b;
+}
+
 .internal-array li span {
   /* Optional: Add styling to the nested items */
   margin-bottom: 5px; /* Adds space between the stacked spans */
 }
 
+
 .index-array {
-    display: flex;
-    list-style: none;
+    display: flex; /* Makes the ul a flex container */
+    list-style: none; /* Removes default bullets */
     padding: 0; /* Removes default left padding/margin */
     margin: 0;
-    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    justify-content: stretch;
+    flex-wrap: wrap;
 }
 
 .index-array li {
-    border: 1px solid rgb(92, 65, 65);
+    flex: 1; /*allows stretching*/
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    border: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 40px;
-    width: 90px;
+    height: 7dvh;
+    max-width: 12dvh;
 }
 
 .index-array li.sorted {
-    background-color: rgba(173, 147, 147, 0.789);
+    background-color: rgba(147, 159, 173, 0.789);
+}
+
+.pseudocode {
+    margin: 5vh 0 0 0;
+    background-color: rgb(149, 149, 149);
+    border-radius: 1em;
+    padding: 1em;
+}
+
+.indent1 {
+    margin-left: 3vh;
+}
+.indent2 {
+    margin-left: 6vh;
 }
