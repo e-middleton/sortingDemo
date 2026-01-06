@@ -137,7 +137,6 @@ function createIndexList() {
 
 function dragStart() {
   dragStartIndex = +this.closest('li').getAttribute('data-index'); // plus symbol makes it a number
-  console.log(dragStartIndex);
 }
 
 // only reason to include this is to prevent default

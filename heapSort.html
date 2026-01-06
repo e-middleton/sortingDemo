@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Drag and Drop Demo</title>
+	<link rel="stylesheet" href="style2.css">
+</head>
+<body>	
+	<h1>Practice for Heap Sort on Arrays</h1>
+	<p>Double click to add an item from the array to the heap.</p>
+	<p>Once the array has been fully heapified, double click the root of the heap to add to the sorted section of the array.</p>
+	<p>If a parent child pair in the heap breaks the heap ordering, they are highlighted in blue until they are swapped.</p>
+	<p>Drag the child to the parent or vice versa to swap the indices and maintain the heap ordering relation.</p>
+
+	<div class="instructions">
+		<div class="heap-properties">
+			<span>
+			The heap in this example is a max-heap, and it follows two important properties.
+			<ul>
+				<li>The child value is smaller than the parent value</li>
+				<li>The heap is a complete binary tree</li>
+			</ul>
+		</span>
+		</div>
+		<div class="explanation">
+			<span>
+				<p>The heap shape property requires that, when an element is removed from the heap, 
+				it must be filled because a gap would mean that it is not a complete binary tree. </p>
+				<p>When the root is removed, that spot is filled with the rightmost-leaf. </p>
+				<p>If the ordering relation is broken by doing this, the root is then compared with both children, 
+				and swapped down with the larger of the two.</p>
+				<p>Similarly, when an element is added to a heap, it must be added as the rightmost-leaf. The lowest level of the tree must be filled from left to right.</p>
+				<p>If adding to this position breaks the heap ordering, the child is compared to the parent, and is swapped upwards until it is correctly placed.</p>
+			</span>
+
+		</div>
+	</div>
+
+	<div class="arrays">
+		<div class="internal-memory">
+			<div class="item">
+				<ul class="heap" id="heap"></ul>
+				<div class="heap-label">heapified</div>
+			</div>
+			<div class="item"> 
+				<ul class="internal-array" id="array"></ul>
+				<div class="array-label">array</div>
+			</div>
+			
+		</div>
+	</div>
+
+	<!-- https://www.youtube.com/watch?v=JyuX0qmGpcs tree explanation -->
+	<article class="tree" id="tree">
+		<!-- root node -->
+		<div class="index0"> 
+			<span class="node"></span>
+			<!-- left child of root-->
+			<div class="index1">
+				<span class="node"></span>
+				<div class="index3"><span class="node"></span></div> <!-- llc2-->
+				<div class="index4"><span class="node"></span></div> <!-- lrc2-->
+			</div> 
+			<!-- right child of root-->
+			<div class="index2">
+				<span class="node"></span>
+				<div class="index5"> <span class="node"></span></div> <!-- rlc2-->
+				<div class="index6"> <span class="node"></span></div> <!-- rrc2 -->
+			</div> 
+		</div>
+	</article>
+	<!-- <button class="button" id="testbutton">undo</button> -->
+	<script src="main2.js"></script>
+</body>
+</html>
